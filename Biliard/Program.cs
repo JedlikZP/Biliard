@@ -12,8 +12,22 @@ namespace Biliard
         {
             List<int> golyók = new List<int>();
             Kezdés(golyók);
-            int leeső = LeEsőSorsoló(golyók);
-            Kiíró(golyók);
+            int leeső;
+
+            do
+            {
+                leeső = LeEsőSorsoló(golyók);
+                Kiíró(golyók);
+                Console.WriteLine(leeső);
+            } while (leeső!=8);
+            if (golyók.Count==0)
+            {
+                Console.WriteLine("Nyertél");
+            }
+            else
+            {
+                Console.WriteLine("Vesztettél!");
+            }
 
             Console.ReadKey();
         }
@@ -30,7 +44,7 @@ namespace Biliard
         {
             Random gép = new Random();
             int szám = gép.Next(golyók.Count);
-            golyók.Remove(szám);
+            golyók.Remove(golyók[szám]);
             return golyók[szám];
         }
 

@@ -1,54 +1,62 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Biliard
+namespace billiard
 {
     class Program
     {
         static void Main(string[] args)
         {
             List<int> golyók = new List<int>();
-            Kezdés(golyók);
-            int leeső;
+            kezdes(golyók);
+            int leesett;
+            int szamolo = 0;
 
             do
             {
-                leeső = LeEsőSorsoló(golyók);
-                Kiíró(golyók);
-                Console.WriteLine(leeső);
-            } while (leeső!=8);
-            if (golyók.Count==0)
+                szamolo++;
+                leesett = eltettsors(golyók);
+                Console.WriteLine($"A lelökött golyó: {leesett} ");
+                kiiro(golyók);
+                Console.ReadKey();
+
+            } while (golyók.Contains(8));
+
+            if (golyók.Count == 0)
             {
-                Console.WriteLine("Nyertél");
+                Console.WriteLine("Nyertél!");
             }
             else
             {
-                Console.WriteLine("Vesztettél!");
+                Console.WriteLine("Vesztettél.");
             }
 
             Console.ReadKey();
         }
 
-        static void Kiíró(List<int> golyók)
+        static void kiiro(List<int> golyók)
         {
-            foreach (int item in golyók)
+            foreach (var item in golyók)
             {
-                Console.Write($"{item}, ");
+                Console.Write($"{item} ");
             }
+            Console.WriteLine();
         }
 
-        static int LeEsőSorsoló(List<int> golyók)
+        static int eltettsors(List<int> golyók)
         {
-            Random gép = new Random();
-            int szám = gép.Next(golyók.Count);
+            Random rnd = new Random();
+            int szám = rnd.Next(golyók.Count);
+            int sorsolt = golyók[szám];
             golyók.Remove(golyók[szám]);
-            return golyók[szám];
+            return sorsolt;
         }
 
-        static void Kezdés(List<int> golyók)
+        static void kezdes(List<int> golyók)
         {
             for (int i = 1; i <= 15; i++)
             {
